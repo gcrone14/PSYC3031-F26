@@ -1,51 +1,47 @@
 # Week 2 - Introduction to R/RStudio (part 2)
 
-# setwd()
-
-#### WEEKLY QUESTIONS ####
-
-# Any questions that don’t appear on the screen will be reviewed during today’s tutorial :) 
-
-#' **Should I be creating a new project for each mini assignment?**
-
-#' * Depends on how you want to organize your files.
-
-#' **Do we need to install/load packages for each new project?**
-
-# * No. You will only need to re-install packages if you update R/RStudio. 
-
-#' **When should we include/not include printing in our assignments?**
-
-#' * You do not need to print objects (unless explicitly asked in the assignment 
-#'   instructions or you are expected to show the output of an object to answer a question).
-#' * You can print an object for your own interest (e.g., to see if data loaded properly into R);
-#'   however, make sure the object does not appear in the final script. 
-
-#' **Package spreadsheet!!**
-
-# * The package spreadsheet can be found under the week 2 materials. 
-
-#' **Note: if you are having difficulties installing packages or with RStudio please email me, set up an appointment, come to be before/after class, etc.**
-
-
 # TOPIC 1 - Review
+
+#' BRAINSTORM:
+#' Which ideas/topics do you remember from last class? (Try to avoid
+#' peeking at your notes)
+
+#' 1.
+#' 2. 
+#' 3. 
+#' 4. 
+#' ...
+
+#' Which topics do you feel you need additional practice or would like
+#' additional resources on?
+
+#' 1.
+#' 2. 
+#' 3. 
+#' 4. 
+
 
 #' **Note: this R tutorial requires hsb10.csv. Make sure you download hsb10.csv (which can be found on eClass) onto your computer** 
 #' **and save it in the Data folder (in the PSYC3031 folder)**
+
+#' Today's goal: Go over process of importing and cleaning data so it's
+#' ready to be anlayzed.
+
+#' Steps for performing analysis in R (so far):
 #' 
-#' Steps for performing analyses in R (so far)
-#' 
-#' 1. Load the packages that you will need in that script into your current R session.
+#' 1. Load the packages into current R session (must do once per new session)
 #'  
-#'  * Note: only install packages that you have never installed before (that are 
-#'    not pre-loaded into R). If you have already installed a package or it's 
-#'    automatically loaded in R, do NOT install the package.
+#'  * Installation is required if using packages you have never installed before.
+#'  * We load packages with the _________ function.
 #'    
 #' 2. Load the data into R. 
+#'  * We load data into R with one of several _________ functions, such as
+#'  ___________.
 #' 
-#' 3. Check that the data has been correctly loaded into your R session. 
+#' 3. Check that the data has been correctly loaded into your R session.
+#'   * We can print our data by ___________.
 #' 
-#' 4. **Data cleaning.**
+#' 4. **Data cleaning.** (today's focus!)
 
 #' **TASK: Load the required packages into your current R session. For this tutorial, you will need the psych, here and tidyverse packages.**
 
@@ -54,21 +50,18 @@
 #' * You will need to install the here, tidyverse and psych packages if you haven't installed them already. 
 #' * Always load the tidyverse package last. 
 
-#Loading packages
+# Loading packages
 library(here)
 library(psych)
 library(tidyverse)
 
-#' **TASK: load hsb10.csv data into your R session. Save the data in an object called HsbData.** 
+#' **TASK: load hsb10.csv data into your R session. Save the data in an object called hsb_dat.** 
 
-#' Note:
-#' 
-#' * The code in here() may differ depending on where you saved the data. 
-
-#Loading hsb10.csv and saving the data in an object called HsbData
-HsbData<- read.csv(file = here("Data", "hsb10.csv"))
+#Loading hsb10.csv and saving the data in an object called hsb_dat
+hsb_dat <- read.csv("Data/hsb10.csv")
 
 #' **TASK: check that the data has been correctly loaded into your R session.** 
+
 
 #' Note:
 #' 
@@ -79,175 +72,179 @@ HsbData<- read.csv(file = here("Data", "hsb10.csv"))
 #' view() - shows you the entire dataset 
 #' str() - shows the data type of all the variables 
 
-#Viewing the entire dataset 
-view(HsbData)
+# Viewing the entire dataset (as a spreadsheet) 
+# view(hsb_dat)
 
 
-
-# TOPIC 2 - Data type
-
-
+# TOPIC 2 - Data types
 
 #' Main Data types: 
 
-#' Numeric: Numbers with decimals and can include negative values 
+#' Numeric (dbl or num): Numbers with decimals and can include negative values 
 #' E.g., 1.1, 2.2, 3, 4, 5.2
 
-#' Integer: Whole numbers 
+#' Integer (int): Whole numbers 
 #' E.g., 1, 2, 3, 4, 5
 
-#' Logical: TRUE and FALSE values 
+#' Logical (lgl): TRUE and FALSE values 
 #' E.g., TRUE, FALSE, FALSE, TRUE
 
-#' Character: Values with quotation marks ("")
+#' Character (chr): Values with quotation marks (""); text strings.
 #' E.g., "Dog", "Cat", "1", "5" "Blue" 
 
 
 #' Checking the data type of objects: 
 #' 
 #' * When you create an object or load data into R, R will try to automatically
-#'   assign the appropriate data type to your object/variables
+#'   assign the appropriate data type to your object/variables.
+#' * Sometimes it gets it right; other times, it's very wrong. It's your
+#' job to understand if the data are imported correctly.
 #' * To check the data type (or structure) of an object/variable, use the str() function
 
-#' **TASK: check the structure of the variables in HsbData**
-
-#Checking the structure of the variables in HsbData
-str(HsbData)
+#' **TASK: check the structure of the variables in hsb_dat**
 
 
 
-# TOPIC 3 - Data Structures 
-
-
+# TOPIC 3 - Data Structures
 
 #' Data structures: different ways R can store and organize data
 
-
 # Different Data Structures:
 
-# 1. Vectors: a string of values (numbers, words, etc.) of the same data type 
+# 1. Vectors: a string of values (numbers, words, etc.) of the SAME data type
 
 #' Creating vectors: 
 #' 
-#' * c(): allows you to combine multiple values (numbers, words, etc.) into a single vector
+#' * c(): concatenate (or combine)- allows you to combine multiple values (numbers, words, etc.) 
+#' into a single vector
 #'    
 #'    * Separate each element of the vector with a comma
 
 #' **TASK: create a vector containing the values 1, 2, 3, 4, 5, and 6. Save this**
-#' **vector in an object named Numbers1**
+#' **vector in an object named nums_1**
 
-#Creating a vector called Numbers1
-Numbers1<- c(1, 2, 3, 4, 5, 6)
+
+#' **TASK: create a vector containing the following values: 0, "zero", FALSE.**
+#' **Save your vector as an object called co_vec.**
+#' **Guess what the structure of the vector will be, then check using str()**
+#' **HINT: Concept this demonstrates is known as COERCION.**
+
+
 
 #' Importance of vectors:
 #' 
-#' * Many functions accept vectors 
+#' * Many functions accept vectors as arguments
 #' * Coding efficiency (e.g., if you want to apply one function to multiple values)
 
-#' Different types of vectors: 
-#'  
-#' Matrices: a 2D set of values of the same data type
-#'
-#' Arrays : matrices with more than 2 dimensions
-#'
-#' Lists: vectors that can store different data types
+#' Example: repeated addition
+#' Suppose 4 students answer 7 questions. Their data are found in `scores`.
+scores <- c(3, 1, 7, 4)
+scores + 1 # Adds 1 to all scores in the vector
+scores * 2 # Doubles all scores
+scores / 7 * 100 # Find the percent score for each student
 
-#' Different Data Structures (continued)
-#' 
-#' 2. Dataframe: a list of vectors. Each column of the dataframe is a vector. 
-#'               Each cell within a column/vector must be of the same data type. 
+
+#' 2. Dataframe: Common data storage object (think: Excel spreadsheet), with
+#' some rules: 
+#'   a) Each column is a vector, and each row is an observation.
+#'   b) Since each column is a vector, all data in a single column must be
+#'   of the same type.
 #'    
-#'    * The data you loaded into R is a dataframe (each column of the dataset 
-#'      is a vector, each with a specific data type)
+#'    * The data you loaded into R is a data.frame (where each row is a type of
+#'    vector.)
 
-# Demonstration - HsbData is a dataframe 
+# Demonstration - hsb_dat is a dataframe 
 
-#Investigating the structure of HsbData 
-str(HsbData)
+#Investigating the structure of hsb_dat 
+str(hsb_dat)
 
 # Working with dataframes (examples): 
 
-#' 
 #' * Extracting columns/rows 
 #' 
 #' 
-#' *Note: ObjectName[row#, column#]* 
+#' To extract a single value from the data frame: ObjectName[row#, column#]
 
-#' **TASK: extract the third column of HsbData**
+#' If only want a row, leave column# blank: ObjectName[row#, ]
+#' If only want a column, leave row# blank: ObjectName[, column#]
+#' 
+#' The row# or column# can either be an exact value (index) or a logical condition
 
-#Extracting the third column (method 1) 
-Object<- HsbData[,3]
+#' EXAMPLES:
+#' Extracting first row
+hsb_dat[1,]
+#' First column
+hsb_dat[,1]
+#' First cell (row 1, column 1)
+hsb_dat[1,1]
 
+#' **Simpler way to extract columns: ObjectName$column_name**
 
+#' Example: Extract first column
+# 1. Check names with names() function
+names(hsb_dat)
+# 2. Extract column
+hsb_dat$id
 
-#Extracting the third column (method 2) 
-Race<-HsbData$race
-
-#' **TASK: extract the fourth participants data from HsbData**
-
-#Extracting the fourth row/participant
-Par4<- HsbData[4,]
-view(Par4)
-
-#' * Extracting rows with a specific value 
-
-
-#' **TASK: extract the rows in HsbData where the writing score is less than or equal to 50**
-
-#Extracting rows where the writing score is less than or equal to 50
-Write50<- HsbData[HsbData$write<=50,]
-
-Write50New<- Write50[,8]
-
-#' *  Extracting a specific cell 
+#' **TASK: extract the third column of hsb_dat**
 
 
-#' **TASK: extract the program information for the fifth participant in HsbData**
+#' **TASK: extract the fourth participant's data from hsb_dat**
 
-#Extracting the program information of the fifth participant
-Par5Prog<- HsbData[5,6]
+#' **TASK: extract the rows in hsb_dat where the writing score is less than or equal to 50**
+#' Hint: Use this format: ObjectName[ObjectName$col_name <= NUM,]
+#' (Fill in the correct values; col_name = name of the column)
+
+#' **TASK: extract the program information for the fifth participant in hsb_dat**
 
 #' * Removing columns/rows 
 
+#' Can remove columns/rows by adding a minus sign
+#' before the column# or row#, 
+#' e.g., Deleting 2nd row
+hsb_dat[-2,]
+#' e.g., Deleting 3rd column
+hsb_dat[,-3]
 
-#' **TASK: remove the ID column in HsbData**
-
-#Removing the ID column
-HsbData[,-1]
+#' **TASK: remove the ID column in hsb_dat**
 
 
 #' * Complete operations on columns/a row of the dataframe
 
-
-#' **TASK: find the mean writing score for the sample** 
-
-#Mean writing score   
-mean(HsbData$write)
-
-#' Note: To find the mean of values that are not saved as an object, 
-#' you need to create a vector inside the function. 
-#' For example, to find the mean of 3, 4, 5, and 6 using mean():
-
-#Computing the mean (using mean())
+#Computing the mean (using mean()) can be done as so:
 mean(c(3, 4, 5, 6))
 
-#Computing the mean (manually)
+# As opposed to doing it manually (NEVER do this!)
 (3 + 4 + 5 + 6)/4
+
+#' **TASK: find the mean of the writing score variable within hsb_dat**
+#' **HINT: You'll need to index the column using Object$col_name** 
 
 
 #' Different Data Structures (continued)
 #' 
 #' 3. Tibbles: used in tidyverse (similar to dataframes)
 
+#' Can convert any data.frame to a tibble with as_tibble()
+#' (Make sure to load tidyverse first!)
+hsb_dat_tibble <- as_tibble(hsb_dat)
 
+#' Can convert back with as.data.frame()
+as.data.frame(hsb_dat_tibble)
+
+#' Why use tibbles?
+#' They look much nicer when printed (give much better sense of data)
+#' compared to data frames, but both behave (nearly) identically.
+hsb_dat # data.frame
+hsb_dat_tibble # tibble
+
+#' Use whichever you like, but be consistent
 
 # TOPIC 4 - Data manipulation
 
-
-
 #' What are data manipulations?
 #' 
-#' * Filtering certain participants 
+#' * Filtering certain participants out
 #' * Selecting certain columns 
 #' * Changing the structure of variables
 #' * Creating new variables (from existing variables)
@@ -255,22 +252,24 @@ mean(c(3, 4, 5, 6))
 
 #' How can data manipulations be performed?
 #' 
-#' * We will be using a variety of different functions from the tidyverse package
+#' * We will be using a variety of different functions from the dplyr package
+#' (One of MANY tidyverse packages.)
 #' 
-#' *Note: check your data after performing a manipulation*
+#' *Note: good habit- check your data after performing a manipulation*
 
 
-#Filtering rows/participants 
+# Filtering rows/participants 
 
 #' Filtering: extracting rows that meet a certain criteria 
 #'            
-#' Function: filter() from the tidyverse package
+#' Function: filter() from dplyr
 #' 
 #' General formats: 
 #' 
 #' * filter(data, criteria)
+#' * The criteria is the logical check, which uses the variables in the data
 #'    
-#' *Note: to create filters (i.e., the criteria) you can use the operators taught last week!*
+#' *Note: to create filters (i.e., the criteria) you can use the logical checks taught last week!*
 #'         
 #'         * < less than 
 #'         * > greater than
@@ -283,50 +282,37 @@ mean(c(3, 4, 5, 6))
 #'         * is.na() is missing data
 #'         * ! Not
 
-#' **TASK: extract the participants in HsbData who have a writing score of 50 or lower.**
-#' **Save this data into a new object called WritingScore50**
+#' An example: Filter data so only female participants are present
+#' (i.e., female is equal to 0)
+filter(hsb_dat, female == 0)
 
-#Filtering participants with a writing score of 50 or lower
-WritingScore50<- filter(HsbData, write <= 50)
+#' BEWARE: Common mistake is writing "=" instead of "==":
+#' = means "assign objects or arguments"
+#' == means "check if two things are equal"
 
-#Displaying output
-WritingScore50
+#' **TASK: extract the participants in hsb_dat who have a writing score of 50 or lower.**
+#' **Save this data into a new object called writing_score_50**
+#' **HINT: Recall filter(data, criteria) as a general format.**
 
-#' **TASK: extract the participants in HsbData who are in program 1.**
-#' **Save this data into a new object called ProgramOne**
 
-#Filtering participants in program 1
-ProgramOne<- filter(HsbData, prog == 1)
 
-#Displaying output
-ProgramOne
+#' **TASK: extract the participants in hsb_dat who are in program 1.**
+#' **Save this data into a new object called program_one and print it**
 
-#' **TASK: extract the participants in HsbData who are NOT in program 1.**
-#' **Save this data into a new object called NotProgramOne**
 
-#Filtering participants NOT in program 1
-NotProgramOne<- filter(HsbData, !prog == 1)
 
-#Displaying output
-NotProgramOne
+#' **TASK: extract the participants in hsb_dat who are NOT in program 1.**
+#' **Save this data into a new object called not_program_one and print it**
 
-#' **TASK: extract the participants in HsbData that are not missing their math AND writing scores.**
-#' **Save this data into a new object called CompleteMathWrite** 
 
-#Filtering participants that are NOT missing math and writing scores
-CompleteMathWrite<- filter(HsbData, !is.na(math) & !is.na(write))
 
-#Displaying output
-CompleteMathWrite
+#' **TASK: extract the participants in hsb_dat that are not missing their math AND writing scores.**
+#' **Save this data into a new object called complete_math_write and print it** 
+#' **HINT: Consider using the following symbols: !, is.na, and &**
 
-#' **TASK: extract the participants in HsbData that have a read score greater than 50 OR a write score greater than 50.**
-#' **Save this data into a new object called ReadWrite50** 
 
-#Filtering participants that are NOT missing math and writing scores
-ReadWrite50<- filter(HsbData, read > 50 | write > 50)
-
-#Displaying output
-ReadWrite50
+#' **TASK: extract the participants in hsb_dat that have a read score greater than 50 OR a write score greater than 50.**
+#' **Save this data into a new object called read_write_50 and print it**
 
 
 #' **QUESTION: if someone has no response (such as how some people have no response**
@@ -335,71 +321,50 @@ ReadWrite50
 #' **E.g., how can retain the participants with missing data on the math variable?**
 
 
-
-
 # Selecting Columns: 
 
 
 #' Selecting: extracting specific columns from your dataset 
 #'            
-#' Function: select() from the tidyverse package
+#' Function: select() function
 #' 
-#' General formats: 
+#' General format: 
 #' 
 #' * select(data, columns)
 #'    
 #' * Note: you can either input the names of columns or the number of 
-#'         the column
+#'         the column (best practice is to use names)
 
-#' **TASK: remove the ID column from HsbData. Call this a new object called HsbDataRevised**
+#' To select out columns, put a - before the column you wish to remove:
+# select(data, -columns)
+#' If selecting multiple columns, should save it as a vector (using c()) or
+#' by using the ":" shorcut. For example, if a data set had 10 columns, named
+paste0("col", 1:10)
 
-#Removing the ID column (method 1)
-HsbDataRevised<- select(HsbData, -id)
+#' and you wanted to only select the first four columns, you'd say:
+#' select(dat, col1:col4).
 
-#Removing the ID column (method 2)
-HsbDataRevised<- select(HsbData, -1)
-
-#Removing the ID column (method 3)
-HsbDataRevised<- select(HsbData, female:socst)
-
-#Removing the ID column (method 4)
-HsbDataRevised<- select(HsbData, 2:11)
-
-#Displaying output
-HsbDataRevised
+#' **TASK: remove the ID column from hsb_dat. Call this a new object called hsb_dat_revised**
+#' **and print it.**
 
 
-#' **TASK: select the prog, ses and write columns from HsbData.** 
-#' **Create a new object called WritingData**
-
-#Selecting the prog, ses and write columns (method 1)
-WritingData<- select(HsbData, prog, ses, write)
-
-#Selecting the prog, ses and write columns (method 2)
-WritingData<- select(HsbData, 4, 6, 8)
-
-#Displaying output
-WritingData
+#' **TASK: select the prog, ses and write columns from hsb_dat.** 
+#' **Create a new object called writing_dat, and print it**
 
 
 #' Creating New Variables: 
 #' 
 #' Creating a new variable: manipulating existing variables in the data to create a new variable. 
 #'            
-#' Function: mutate() from the tidyverse package
+#' Function: mutate() from dplyr
 #' 
-#' General formats:
+#' General format:
 #' 
 #' * mutate(data, NewVariableName = manipulation)
 
-#' **TASK: create a new variable (called AverageScore) that is the average of participants wiring and math score**
-#' **using the CompleteMathWrite data**
 
-#Creating a new variable that is the average of each participants writing and math score
-CompleteMathWrite<- mutate(CompleteMathWrite, AverageScore = (write + math)/2)
-
-#Displaying output
-CompleteMathWrite
+#' **TASK: create a new variable (called average_score) that is the average of participants' wiring and math scores**
+#' **using the complete_math_write data from earlier. You may overwrite the data**
 
 
 #' Changing the Data Type of Variables: 
@@ -407,7 +372,7 @@ CompleteMathWrite
 #' R may assign the wrong data type to a variable. It is your job to change the 
 #' structure of the variable to the correct data type.   
 #'            
-#' Function: mutate() from the tidyverse package
+#' Function: mutate() from the dplyr package
 #' 
 #' General formats:
 #' 
@@ -425,92 +390,93 @@ CompleteMathWrite
 #'      * as.logical() - change the structure to logical 
 #'    
 #' * When changing the structure of a variable to numeric, first change the structure 
-#'   to character. 
+#'   to character.
 
-#' **TASK: change the structure of the write variable in HsbData to numeric.**
+#' Sidenote: There are far more efficient ways to convert many variables' data types
+#' using more advanced formats and functions. Gabe can share them if they would
+#' be useful.
+
+#' **TASK: change the structure of the write variable in hsb_dat to numeric.**
 #' **Check the structure of the new variable.**
 
-#Changing the structure of the write variable to numeric (method 1)
-
-HsbData<- mutate(HsbData, 
-                 n_write = as.character(write))
-
-HsbData<- mutate(HsbData, 
-                 n_write = as.numeric(n_write))
-
-#Changing the structure of the write variable to numeric (method 2)
-
-HsbData<- mutate(HsbData, 
-                 n_write = as.numeric(as.character(write)))
-
-#Checking the structure of the variable
-str(HsbData)
 
 
-#' **TASK: change the race variable in HsbData to factor and check the structure of the new variable**
+#' **TASK: change the race variable in hsb_dat to factor and check the structure of the new variable**
 
-#Changing the structure of the race variable (method 1)
-HsbData<- mutate(HsbData, 
-                 f_race = factor(race))
 
-#Checking the structure of the variables
-str(HsbData)
 
 #' Additional arguments for the factor() function: 
+#' 1. x: the column
+#' 2. levels: vector of unique values in the column
+#' 3. labels: new labels to input in order of existing levels
 
-#' **TASK: change the female variable in HsbData to factor.**
+#' Basic format:
+#' mutate(dat, column = factor(column, levels = c(), labels = c()))
+#' both c() must be filled in with correct values
+
+#' **TASK: change the female variable in hsb_dat to factor.**
 #' **Relabel the levels so that 1 = female and 0 = male.**
 #' **Check the structure of the new variable.**
+mutate(hsb_dat, female = factor(female, levels = c(0, 1), labels = c("male", "female")))
 
-#Changing the structure and labels of the female variable
-HsbData<- mutate(HsbData, f_female = factor(female, levels = c(0, 1),labels = c("Male", "Female")))
+# TOPIC 5 - Piping
 
-#Checking the structure of the variable
-str(HsbData)
+#' Pipes are an extremely useful (and very common) shorthand for most
+#' of the syntax we've been using, and permit you to more flexibly do
+#' commands in R.
+
+#' The pipe symbol, |>, basically just says, 
+#' "take the object made from previous line(s), and then do this..."
+
+#' For example: If you want to take your data, then select the id
+#' column, pipe notation would be:
+hsb_dat |> select(id)
+
+#' Compare this with the alternative:
+select(hsb_dat, id)
+
+#' This might seem inconsequential, but it's not:
+#' it's a lot more readable.
+
+#' Pipes become even more useful when "chaining" multiple commands together
+#' For example: suppose you wanted to select math scores and filter them
+#' so none were missing
+
+#' The regular way would be to run two separate commands:
+math_scores <- select(hsb_dat, math)
+filter(math_scores, !is.na(math))
+
+#' Notice that you must save each intermediate step, which becomes
+#' annoying/tedious quickly.
+
+#' But with pipes, it becomes a lot easier:
+hsb_dat |>             # Take hsb_dat
+  select(math) |>      # select math scores
+  filter(!is.na(math)) # filter it so only non-missing math scores appear
+
+#' Pipes "know" when to stop because it runs all lines up to those without the
+#' pipe (the final line.) If you put a pipe on the final line above, it'll try to keep
+#' running subsequent lines and error out.
+
+#' **EXERCISE: Convert the following lines of code to a more readable version**
+#' **with pipes**
+
+# ORIGINAL:
+# Steps: Filter so race == 4, both read and write are greater than 50,
+# then select the read and write variables.
+race_4 <- filter(hsb_dat, race == 4)
+read_gr_50 <- filter(race_4, read > 50)
+write_gr_50 <- filter(read_gr_50, write > 50)
+select_vars <- select(write_gr_50, read:write)
+
+# WITH PIPES:
+# ...
 
 
-#' Re-coding variables: 
-#' 
-#' Purpose: to make a continuous variable categorical   
-#'            
-#' Function: 
-#' * mutate() - create the new variable
-#' * base::cut() - re-code the continuous variable according to user specified intervals
-#' 
-#' General formats:
-#' 
-#' * mutate(data, NewVariableName = manipulation)
-#' * cut(variable, 
-#' breaks = c(-Inf, #, #, Inf),
-#' labels = c("Label", "Label", "Label")
-#' )
-#'    
-#' *Note about cut():* 
-#'
-#' * The "breaks" specify the range of values for each level of the new categorical 
-#'   variable you are creating. For example, if breaks = c(-Inf, 10, 20, Inf), you are 
-#'   creating a 3 level categorical variable. Level 1 = values of the continuous variable
-#'   <= (less than or equal to) 10. Level 2 = values of the continuous variable between 11-20. Level 3 = values 
-#'   of the continuous variable >= (greater than or equal to) 21. 
-#'      
+#' **KEY NOTE: It's a great idea to get used to using pipes now; they become extremely useful for the**
+#' **course and make using R a lot more pleasant!**
 
-#' **TASK: Create a categorical variable (called WriteCat) for write where participants**
-#' **with a writing score less than or equal to 46 have a "Low" score. Otherwise,** 
-#' **participants have a "High" score.**
-
-#Changing the structure and labels of the female variable
-HsbData<- mutate(HsbData, 
-                 WriteCat = cut(n_write,
-                                breaks = c(33, 46.5, 59),
-                                labels = c("Low", "High")))
-
-
-str(HsbData)
-min(HsbData$n_write)
-max(HsbData$n_write)
-# TOPIC 5 - Compile Report 
-
-
+# TOPIC 6 - Compile Report 
 
 #' Purpose: 
 #' 
@@ -518,30 +484,27 @@ max(HsbData$n_write)
 #' 
 #' Different methods to compile a report: 
 #' 
-#' 1. Mac: Command + K
-#' 2. Windows: Ctrl+Shift+K
+#' 1. Mac: Command + Shift + P -> Type "Compile Report" and click "Compile"
+#' 2. Windows: Ctrl + Shift + P -> Type "Compile Report" and click "Compile"
 #' 3. File > Compile Report...> Choose format > Compile
-#' 
 #' 
 #' **TASK: compile the current R script into an HTML file.**
 
 
 # EXTRA PRACTICE 
 
-
-
 #' 1. Create and save a new R script for these practice questions
 #'    This R script will also be used for next weeks practice questions. 
 #' 2. Load the psych, here and tidyverse packages into your R session.
-#' 3. Load the cereal 3.csv data into R. Save the dataset into an object called CerealData
+#' 3. Load the cereal 3.csv data into R. Save the dataset into an object called cereal_dat
 #' 4. Check that the data was loaded correctly into R. 
 #' 5. Extract the name, type, mfr, rating, calories, sugars and carbo columns from the dataset. Call
-#'    this new dataframe RevisedCerealData
-#' 6. Extract only the cold cereals (i.e., type = C) from the RevisedCerealData dataframe. Save 
-#'    this revised dataset in the RevisedCerealData object
-#' 7. Remove the type variable from the RevisedCerealData dataframe. Save 
-#'    this revised dataset in the RevisedCerealData object
-#' 8. Change the structure of the mfr variable from RevisedCerealData to a factor. Relabel the levels so that:
+#'    this new dataframe revised_cereal_dat
+#' 6. Extract only the cold cereals (i.e., type = C) from the revised_cereal_dat dataframe. Save 
+#'    this revised dataset in the revised_cereal_dat object
+#' 7. Remove the type variable from the revised_cereal_dat data frame. Save 
+#'    this revised dataset in the revised_cereal_dat object
+#' 8. Change the structure of the mfr variable from revised_cereal_dat to a factor. Relabel the levels so that:
 #'        * A = American Home Food Products
 #'        * G = General Mills
 #'        * K = Kelloggs
@@ -549,11 +512,7 @@ max(HsbData$n_write)
 #'        * P = Post
 #'        * Q = Quaker Oats
 #'        * R = Ralston Purina
-#' 9. Create a new categorical variable (called RatingCat) from rating where cereals 
-#'    with a rating between:
-#'        * 18-43 = "Bad"
-#'        * 44-69 = "Neutral"
-#'        * 70-95 = "Good"
+#' 9. Do steps 1-8 with pipes.
 
 #' *Note: the answers will be reviewed next class*
 
