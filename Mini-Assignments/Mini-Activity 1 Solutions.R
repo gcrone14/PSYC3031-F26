@@ -72,8 +72,11 @@ table(married_suburban$married,
       married_suburban$urban)
 
 #' The transformation worked since only one
-#' combination of both variables was counted.
+#' combination of both variables was counted.     
 
+
+
+#' 
 #' **5) In the personality dataframe, use familysize to create a new categorical variable called familysize_cat with two categories: 2 or less and more than 2. Hint: You will need to use an ifelse() statement as part of your code.**
 
 # Check levels of familysize
