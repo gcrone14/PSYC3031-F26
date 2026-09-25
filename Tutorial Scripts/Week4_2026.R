@@ -1,5 +1,32 @@
 # Week 4 - Descriptives with R (Part 1)
 
+#' BRAINSTORM:
+#' Which ideas/topics do you remember from last tutorial
+#' AND the guest lecture?
+
+#' Tutorial:
+#' 1.
+#' 2. 
+#' 3. 
+#' 4. 
+#' ...
+
+#' Guest lecture:
+#' 1.
+#' 2. 
+#' 3. 
+#' 4. 
+#' ...
+
+#' Which topics do you feel could use some additional coverage
+#' or a quick refresher before diving in today?
+
+#' 1. 
+#' 2. 
+#' 3. 
+#' 4. 
+#' ...
+
 # TOPIC 1 - Review
 
 #' The steps for performing analyses in R (so far)
@@ -49,9 +76,12 @@ as_tibble(hsb_dat)
 #'        
 #'        * 1 = female, 0 = male 
 #'        * 1 = general, 2 = academic and 3 = vocational
-#'        
+#'    
+#'    * HINT: use factor() along with its arguments: levels and labels.
+#'    
 #'    * 3) Extract the participants with writing scores in hsb_dat 
 #'    (i.e., no missing data on the writing variable).
+#'    * HINT: recall the command !is.na(variable)
 #'    * 4) Save the final result to an object called hsb_dat_revised.
 #'    (It may be a data.frame or tibble; the choice is yours.)
 
@@ -59,7 +89,17 @@ as_tibble(hsb_dat)
 
 #' Please attempt before seeing the answer (below)
 
-# ANS ----
+
+
+
+
+
+
+
+
+
+
+# ANSWER ----
 hsb_dat_revised <- hsb_dat |>
   select(prog, female, write, math) |>
   mutate(female = factor(female, 
@@ -71,10 +111,6 @@ hsb_dat_revised <- hsb_dat |>
   filter(!is.na(write))
 
 #-----
-
-
-
-
 
 # TOPIC 2 - Numeric Descriptive Statistics (Univariate)
 
