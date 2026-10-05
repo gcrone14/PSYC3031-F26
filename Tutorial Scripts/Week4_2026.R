@@ -46,7 +46,8 @@
 #' 5. **Generate data visualizations and numeric descriptive statistics.**
 #' (today's disucssion!)
 
-#' **STEP 1: Load the packages that you will need in that script into your current R session.**
+#' **STEP 1: Load the packages that you will need in that script into your**
+#' **current R session.**
 
 # Loading packages
 library(psych)

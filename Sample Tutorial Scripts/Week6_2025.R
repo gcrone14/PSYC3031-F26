@@ -6,7 +6,8 @@
 
 
 
-### Research question: We are interested in investigating the relationship between 
+### Research question: We are interested in investigating the 
+# relationship between 
 ### hourly wage (HRLYEARN) and education (EDUC). 
 
 
