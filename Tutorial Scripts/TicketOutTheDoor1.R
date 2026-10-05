@@ -11,9 +11,11 @@
 #' starbucks-menu-nutrition-food.csv (food).
 
 #' The columns are as follows:
-#' * item = The name of the item
-#' * type = Whether the item is a food (Food) or a drink (Drink)
-#' * calories = # of Calroies in the item
+#'
+#' - `item` = The name of the item
+#' - `type` = Whether the item is a food (Food) or a drink (Drink)
+#' - `calories` = Number of calories in the item
+#' 
 #' The other variables are other nutritional info, including
 #' fat (g), carb (g), fiber (g), protein (g), sodium (mg),
 #' and protein (g).
@@ -48,13 +50,11 @@ star_items_final <- star_items |>
   filter(!is.na(fat_g) & !is.na(carb_g))
 
 # Descriptive stats for `type`
-star_items_final |>
-  select(type) |>
-  table()
+table(star_items_final$type)
 
 #' The above shows that there are slightly more food items (113) 
 #' than drink items (92).
-
+#' 
 #' (Note: You may show a bar chart of this result, but I find it superfluous
 #' since we only have two values.)
 
@@ -69,7 +69,7 @@ star_items |>
 #' 
 #' (Note: Reporting the median is usually optional; I did so because there was
 #' a large discrepancy between the mean and median for fats).
-
+#' 
 #'  It's often helpful to visualize the distributions of continuous data
 # For fats
 star_items_final |>
@@ -87,17 +87,18 @@ star_items_final |>
   ylim(0, 80)
 
 #' (We'll discuss ways to polish plots later on. These work for now.)
-
+#' 
 #' Fats appear to be far more right-skewed (i.e., more values)
 #' that are lower) with lower variability compared to carbs, which appears more
 #' normally distributed and more varied.
-
+#' 
 #' It would also be worthwhile to compare based on the type of item
 #' they are (drink vs. food).
 #' 
 #' We didn't discuss it yet, but using the psych::describeBy()
 #' function would accomplish this. (I would encourage you to look at the
 #' help documentation for this function.)
+
 star_items_final |>
   select(-type) |>
   psych::describeBy(group = star_items_final$type)
@@ -121,7 +122,7 @@ star_items_final |>
 
 #' SAMPLE WRITEUP:
 #' **DISCLAIMER---PLEASE READ!**
-
+#' 
 #' Writing a proper statistical report is not easy. Students
 #' are usually tempted to copy-paste any template provided and
 #' sub in words, tweak interpretations, and be done.
@@ -141,28 +142,41 @@ star_items_final |>
 #' you should always modify it to suit the data, descriptive stats,
 #' and  visualizations that are produced. Most importantly, you must
 #' write it in your own voice and style.
+#' 
 #' **END OF DISCLAIMER**
-
+#' 
 #' **START WRITEUP**
+#' 
 #' The data set at present represents nutritional information
-#' for various items at *Starbucks* stores. I was interested
+#' for various items at Starbucks stores. I was interested
 #' in determining if there was a linear relationship between
 #' the grams of carbohydrates (sugar) and the grams of fat
 #' in each item, and whether this relationship differed
-#' as a function of the type of *Starbucks* item (food or drink).
+#' as a function of the type of Starbucks item (food or drink).
 #'  
 #' To accomplish this goal, I generated and interpreted simple univariate
 #' descriptive statistics and visualizations.
 #' 
 #' On average, *Starbucks* items tended to contain more grams of sugar
-#' (*M* = 33.97, *SD* = 17.61, *Mdn* = 35) than grams of fats 
+#' (*M* = 33.97, *SD* = 17.61, *Mdn* = 35) than grams of fat 
 #' (*M* = 10.06, *SD* = 9.96, *Mdn* = 7.0).
-
+#' 
 #' As well, drinks appear to have fewer grams of fat (*M* = 2.34, *SD* = 3.89)
 #' and carbohydrates (*M* = 27.74, *SD* = 15.21)
 #' relative to foods (fat: *M* = 16.35, *SD* = 8.30; 
 #' carbs: *M* = 41.49, *SD* = 15.80). (This makes sense because drinks often
 #' have lower contents of sugars, fats, etc... than foods.)
+
+star_items_final |>
+  ggplot(aes(x = carb_g, y = fat_g, color = type)) +
+  geom_point() +
+  # Good addition: Fits a line of best fit with margin of error
+  geom_smooth(method = "lm", formula = "y ~ x") +
+  # Good addition: Adds axis labels
+  labs(x = "Carbohydrates (g)", y = "Fats (g)",
+       title = "Figure 1") +
+  # Good addition: Makes theme simpler
+  theme_bw()
 
 #' Figure 1 (see above) illustrates the linear relationship between
 #' fats and sugar as a function of drink type. In the plot, 
@@ -175,4 +189,5 @@ star_items_final |>
 #' sugar also tended to contain more fat (and vice versa). Further
 #' statistical models should be fit to confirm this relationship and explore
 #' it further.
+#' 
 #' **END WRITEUP**

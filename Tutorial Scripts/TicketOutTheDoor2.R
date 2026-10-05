@@ -29,7 +29,7 @@
 #' the following research question:
 #' Does the relationship between carbs and fat differ based on
 #' the CATEGORY of each item?
-
+#' 
 #' Make sure that the plot(s) is (are) not too "busy" 
 #' with regard to the category variable
 #' (facet_wrap() is your friend!).
@@ -78,14 +78,14 @@ star_items_full |> count(category, sort = TRUE)
 #' are tea (*N* = 34), bakery items (*N* = 32), and coffee (*N* = 24), 
 #' whereas frappuccinos (*N* = 5), refreshers (*N* = 5), and 
 #' salads (*N* = 5) were the least popular.
-
+#' 
 #' (SIDENOTE: Frapuccinos were likely not here often because their data
 #' were missing regarding their fat and sugar content.)
-
+#' 
 #' Now let's focus in on our research question:
 #' how does the relationship between carbs and fat differ based on
 #' the category of item?
-
+#' 
 #' The plot we did last time for our answer works particularly well.
 #' We tweak it by swapping out the variable type for category.
 star_items_full |>
@@ -101,7 +101,7 @@ star_items_full |>
 
 #' This plot is ok, but is far too busy to make out clear
 #' patterns.
-
+#' 
 #' Perhaps if we omit the se widths on geom_smooth(), it'll
 #' look better?
 star_items_full |>
@@ -129,8 +129,8 @@ star_items_full |>
   theme(legend.position = "none")
 
 #' A bit better, but now we have another problem:
-#' what does each color mean!
-
+#' what does each color mean?
+#' 
 #' I think the most reasonable solution with so
 #' much data is to use facet_wrap().
 #' Doing so enables us to split up the plot by
@@ -166,29 +166,28 @@ star_items_full |>
   # is no longer a legend)
   facet_wrap(~category)
 
-#' This data graphic, I think, works well because
+#' This graph, I think, works well because
 #' it expediently answer the question we
 #' cared about: does the category of item
 #' affect the relationship between fat and carbs?
-
+#' 
 #' The answer is a resounding yes:
 #' The relationship is strong and positive within
 #' the bakery and coffee groups, and is far
-#' less strong within all other groups.
+#' less strong (weak to almost non-existant) within all 
+#' other groups.
 #' 
-#' Of note, teas show almost no relationship
-#' between the two.
-
+#' 
 #' This plot also shows you the raw data points;
 #' more data makes the relationships shown
 #' have more evidence. (Less data means they're less
-#' reliable, hence the error bars.)
-
+#' reliable, hence the wider error bars.)
+#' 
 #' It's nice because we can clearly see that
 #' no tea of refreshers have fat, which is why
 #' the relationship doesn't hold within
 #' that group.
-
-#' This is a nice example of what's called
+#' 
+#' This is a good example of what's called
 #' a MODERATION: the item category moderates
 #' the relationship between carbs and fat.
