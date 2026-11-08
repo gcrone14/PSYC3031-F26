@@ -28,11 +28,7 @@ library(ez) ### ANOVA package
 library(here)
 library(tidyverse)
 
-
-
 #' **STEP 2: load TreatmentData.csv into R. Save the data in an object called TreatmentData**
-
-
 
 #Load the data
 treatment_dat <- read_csv(file = here("Data", "TreatmentData.csv")) |>
@@ -392,8 +388,12 @@ res$'ANOVA'[[3]]
 
 # TOPIC 7 - Practice Questions 
 
-#' Research Scenario: A researcher was interested in investigating how coffee intake throughout the day
-#' impacts individuals energy levels. To test this, the researcher gathered a sample of 200 young adults.
-#' Each adult was asked to record their energy levels (on a scale from 1-20) when they wake up (i.e., no
-#' coffee) and after their first coffee, second coffee, and third coffee. Conduct a repeated measures ANOVA 
+#' Research Scenario: A researcher was interested in investigating 
+#' how coffee intake throughout the day
+#' impacts individuals energy levels. To test this, 
+#' the researcher gathered a sample of 200 young adults.
+#' Each adult was asked to record their energy levels (on a scale from 1-20) 
+#' when they wake up (i.e., no
+#' coffee) and after their first coffee, second coffee, and third coffee. 
+#' Conduct a repeated measures ANOVA 
 #' using the CoffeeData.csv. Provide a brief summary of the results. 
